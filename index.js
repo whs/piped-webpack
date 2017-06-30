@@ -28,8 +28,7 @@ class WebpackPlugin {
 
 		return through2.obj(function(file, encoding, callback){
 			self.stream = this;
-			let chunkName = self.generateChunkName(file);
-			self.config.entry[chunkName] = [file.path];
+			self.processFile(file);
 			callback();
 		}, function(cb){
 			self.stream = this;
@@ -109,6 +108,11 @@ class WebpackPlugin {
 
 	prepareFileSystem(){
 		return new this.MemoryFileSystem();
+	}
+
+	processFile(file){
+		let chunkName = this.generateChunkName(file);
+		this.config.entry[chunkName] = [file.path];
 	}
 
 	fsToStream(fs, stream){
