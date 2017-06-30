@@ -29,6 +29,12 @@ Migrating from webpack-stream is simple: just change your `require` to `piped-we
 
 ## Usage
 
+Install this module from npm:
+
+```
+npm install --save-dev piped-webpack
+```
+
 Pipe your entrypoint files to piped-webpack:
 
 ```js
