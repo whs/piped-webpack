@@ -68,6 +68,17 @@ describe('PipedWebpack', function(){
 		assertWebpackOutput(stream, cb);
 	});
 
+	it('can handle error', function(cb){
+		this.config.entry = {
+			error: [__dirname + '../test_files/error.js'],
+		};
+		let stream = pipedWebpack(this.config);
+		stream.end();
+		stream.on('error', () => {
+			cb();
+		});
+	});
+
 	it('can switch plugin instance', function(){
 		let self = this;
 
