@@ -21,6 +21,7 @@ At [TipMe](https://tipme.in.th) we started out with [webpack-stream](https://git
   - We don't set `output` for you, make sure that your `output.path` is not set or set to `process.cwd()`
   - We don't add any plugins for you (webpack-stream can add `ProgressPlugin`). If you want any plugin you can add them manually.
 - Extensible class-based design
+- Use webpack's watch system for performance
 
 The reason we name this as piped-webpack is because webpack-stream also appear as [gulp-webpack](https://www.npmjs.com/package/gulp-webpack) on npm.
 
@@ -98,6 +99,19 @@ gulp.task('webpack', function(){
 		}).release());
 
 	return merge(codeStream, mapStream);
+});
+```
+
+### Watching
+Set `watch: true` in your configuration to use webpack's watch system. This can be done like this:
+
+```js
+gulp.task('webpack', function(){
+	// invoke your webpack normally
+});
+gulp.task('watch', function(){
+	webpackConfig.watch = true;
+	gulp.start('webpack');
 });
 ```
 
