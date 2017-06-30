@@ -83,4 +83,10 @@ describe('PipedWebpack', function(){
 
 		expect(pipedWebpack(this.config, SpyPlugin)).to.eql('PASS');
 	});
+
+	it('throw error when given webpack as second argument', function(){
+		expect(() => {
+			pipedWebpack(this.config, require('webpack'));
+		}).to.throw();
+	});
 });
