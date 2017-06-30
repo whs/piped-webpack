@@ -62,7 +62,7 @@ class WebpackPlugin {
 					colors: gutil.colors.supportsColor,
 				}));
 
-				this.fsToStream(compiler.outputFileSystem, self.stream);
+				self.fsToStream(compiler.outputFileSystem, self.stream);
 				cb();
 			});
 		});
