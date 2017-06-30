@@ -44,7 +44,7 @@ describe('MemoryFsStream', function(){
 		stream.on('end', function(){
 			expect.fail();
 		});
-		
+
 		let count = 0;
 		let onData = function(){
 			count++;

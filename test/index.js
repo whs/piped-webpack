@@ -15,7 +15,7 @@ function testFile(file){
 		return expect.fail();
 	}
 
-	let output = eval(file.contents.toString());
+	let output = eval(file.contents.toString()); // eslint-disable-line no-eval
 	output(function(result){
 		expect(result).to.eql(expectedResult);
 	});
@@ -26,7 +26,7 @@ function assertWebpackOutput(stream, cb=noop){
 	stream.on('data', function(file){
 		foundFiles.push(file.path);
 		testFile(file);
-	})
+	});
 	stream.on('end', function(){
 		foundFiles.sort();
 		expect(foundFiles).to.eql(['deep/path/entry.js', 'deep/path/entry2.js']);
@@ -42,7 +42,7 @@ describe('PipedWebpack', function(){
 				entry2: [__dirname + '/../test_files/entry2.js'],
 			},
 			output: {
-				filename: 'deep/path/[name].js'
+				filename: 'deep/path/[name].js',
 			},
 			stats: 'none',
 		};
@@ -60,7 +60,7 @@ describe('PipedWebpack', function(){
 
 		for(let file of [__dirname + '/../test_files/entry.js', __dirname + '/../test_files/entry2.js']){
 			stream.write(new File({
-				path: file
+				path: file,
 			}));
 		}
 
