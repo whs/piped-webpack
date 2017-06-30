@@ -12,7 +12,7 @@ function testFile(file){
 	}else if(file.basename === 'entry2.js'){
 		expectedResult = false;
 	}else{
-		return expect.fail(`Unknown file ${file.basename}`);
+		return expect.fail();
 	}
 
 	let output = eval(file.contents.toString());

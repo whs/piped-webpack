@@ -24,7 +24,7 @@ describe('MemoryFsStream', function(){
 
 			cb();
 		});
-		new MemoryFsStream(this.fs, '/')
+		new MemoryFsStream(this.fs, {root: '/'})
 			.pipe(stream);
 	});
 
@@ -36,6 +36,25 @@ describe('MemoryFsStream', function(){
 			expect(buf[0].contents.toString()).to.eql('b');
 			cb();
 		});
-		new MemoryFsStream(this.fs, '/path/to/').pipe(stream);
+		new MemoryFsStream(this.fs, {root: '/path/to/'}).pipe(stream);
+	});
+
+	it('can disable automatic closing', function(cb){
+		let stream = new MemoryFsStream(this.fs, {root: '/', close: false});
+		stream.on('end', function(){
+			expect.fail();
+		});
+		
+		let count = 0;
+		let onData = function(){
+			count++;
+			if(count === 2){
+				process.nextTick(() => {
+					cb();
+				});
+				stream.destroy();
+			}
+		};
+		stream.on('data', onData);
 	});
 });
