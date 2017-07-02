@@ -1,5 +1,9 @@
 # Piped Webpack
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Travis Status](https://travis-ci.org/whs/piped-webpack.svg)](https://travis-ci.org/whs/piped-webpack)
+[![npm](https://img.shields.io/npm/v/piped-webpack.svg)](https://www.npmjs.com/package/piped-webpack)
+
 [webpack](https://webpack.js.org) as a [Gulp](http://gulpjs.com) plugin.
 
 ## Why?
