@@ -1,6 +1,6 @@
 {
   "name": "piped-webpack",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Run webpack through a stream interface",
   "main": "index.js",
   "scripts": {

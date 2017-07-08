@@ -68,6 +68,63 @@ describe('PipedWebpack', function(){
 		assertWebpackOutput(stream, cb);
 	});
 
+	it('can compile with additional entrypoints array', function(cb){
+		delete this.config.entry;
+		this.config.additionalEntries = [__dirname + '/../test_files/additionalEntry.js'];
+		
+		let stream = pipedWebpack(this.config);
+		stream.write(new File({
+			path: __dirname + '/../test_files/entry.js',
+		}));
+		stream.end();
+
+		stream.on('data', function(file){
+			expect(file.path).to.eql('deep/path/entry.js');
+			expect(() => {
+				eval(file.contents.toString()); // eslint-disable-line no-eval
+			}).to.throws();
+			cb();
+		});
+	});
+	
+	it('can compile with additional entrypoints function', function(cb){
+		delete this.config.entry;
+		this.config.additionalEntries = (file) => {
+			expect(file).to.be.an.instanceOf(File);
+			expect(file.path).to.eql = __dirname + '/../test_files/entry.js';
+			return [__dirname + '/../test_files/additionalEntry.js'];
+		};
+		
+		let stream = pipedWebpack(this.config);
+		stream.write(new File({
+			path: __dirname + '/../test_files/entry.js',
+		}));
+		stream.end();
+
+		stream.on('data', function(file){
+			expect(file.path).to.eql('deep/path/entry.js');
+			expect(() => {
+				eval(file.contents.toString()); // eslint-disable-line no-eval
+			}).to.throws();
+			cb();
+		});
+	});
+
+	it('throw when run with invalid additionalEntries data type', function(cb){
+		delete this.config.entry;
+		this.config.additionalEntries = __dirname + '/../test_files/additionalEntry.js';
+		
+		let stream = pipedWebpack(this.config);
+		stream.write(new File({
+			path: __dirname + '/../test_files/entry.js',
+		}));
+		stream.end();
+
+		stream.on('error', function(){
+			cb();
+		});
+	});
+
 	it('can handle error', function(cb){
 		this.config.entry = {
 			error: [__dirname + '../test_files/error.js'],
