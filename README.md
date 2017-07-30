@@ -72,6 +72,24 @@ gulp.src([])
 Note that due to webpack's limitation we don't actually use the files from stream, only path. Therefore, don't pipe anything else but `gulp.src` into this plugin.
 
 ## Tips
+### Additional entries
+If you need to use load something in your entrypoints (eg. babel-polyfill) you can use additionalEntries option:
+
+```js
+const gulp = require('gulp');
+const pipedWebpack = require('piped-webpack');
+
+gulp.task('webpack', function(){
+	return gulp.src(['js/entry1.js', 'js/entry2.js'])
+		.pipe(pipedWebpack({
+			// your webpack config
+			additionalEntries: ['babel-polyfill'],
+		}))
+		.pipe(gulp.dest(__dirname + '/static/'));
+```
+
+You can also specify a function that returns an array. The function will receive [Vinyl file](https://github.com/gulpjs/vinyl#new-vinyloptions) object as argument.
+
 ### Submit source maps to Sentry
 Here's how we submit source maps to Sentry, and removing it from production servers
 
