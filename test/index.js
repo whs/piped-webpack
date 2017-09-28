@@ -127,13 +127,27 @@ describe('PipedWebpack', function(){
 
 	it('can handle error', function(cb){
 		this.config.entry = {
-			error: [__dirname + '../test_files/error.js'],
+			error: [__dirname + '/../test_files/error.js'],
 		};
 		let stream = pipedWebpack(this.config);
 		stream.end();
 		stream.on('error', () => {
 			cb();
 		});
+	});
+
+	it('does not throw error in watch mode', function(cb){
+		this.config.entry = {
+			error: [__dirname + '/../test_files/error.js'],
+		};
+		this.config.watch = true;
+
+		let stream = pipedWebpack(this.config);
+		stream.end();
+		stream.on('error', () => {
+			cb(new Error('Stream threw error'));
+		});
+		setTimeout(cb, 10);
 	});
 
 	it('can switch plugin instance', function(){

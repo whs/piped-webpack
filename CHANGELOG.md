@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Changed
 - memoryFsStream is now [memory-fs-stream](https://github.com/whs/memory-fs-stream).
 
+### Fixed
+- No longer produce error on error in watch mode.
+
 ## [1.2.0] - 2017-08-10
 ### Fixed
 - Added Windows support for memoryFsStream
