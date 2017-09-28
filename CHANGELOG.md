@@ -14,3 +14,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ## [1.1.0] - 2017-07-08
 ### Added
 - `additionalEntries` support
+
+[Unreleased]: https://github.com/whs/piped-webpack/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/whs/piped-webpack/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/whs/piped-webpack/compare/v1.0.0...v1.1.0
