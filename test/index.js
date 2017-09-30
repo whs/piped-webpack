@@ -71,7 +71,7 @@ describe('PipedWebpack', function(){
 	it('can compile with additional entrypoints array', function(cb){
 		delete this.config.entry;
 		this.config.additionalEntries = [__dirname + '/../test_files/additionalEntry.js'];
-		
+
 		let stream = pipedWebpack(this.config);
 		stream.write(new File({
 			path: __dirname + '/../test_files/entry.js',
@@ -86,15 +86,16 @@ describe('PipedWebpack', function(){
 			cb();
 		});
 	});
-	
+
 	it('can compile with additional entrypoints function', function(cb){
 		delete this.config.entry;
 		this.config.additionalEntries = (file) => {
 			expect(file).to.be.an.instanceOf(File);
 			expect(file.path).to.eql = __dirname + '/../test_files/entry.js';
+
 			return [__dirname + '/../test_files/additionalEntry.js'];
 		};
-		
+
 		let stream = pipedWebpack(this.config);
 		stream.write(new File({
 			path: __dirname + '/../test_files/entry.js',
@@ -106,6 +107,19 @@ describe('PipedWebpack', function(){
 			expect(() => {
 				eval(file.contents.toString()); // eslint-disable-line no-eval
 			}).to.throws();
+			cb();
+		});
+	});
+
+	it('can run with empty pipe', function(cb){
+		delete this.config.entry;
+		let stream = pipedWebpack(this.config);
+		stream.end();
+		
+		stream.on('data', function(){
+			cb(new Error('Found file, but is not expecting'));
+		});
+		stream.on('end', function(){
 			cb();
 		});
 	});
@@ -113,7 +127,7 @@ describe('PipedWebpack', function(){
 	it('throw when run with invalid additionalEntries data type', function(cb){
 		delete this.config.entry;
 		this.config.additionalEntries = __dirname + '/../test_files/additionalEntry.js';
-		
+
 		let stream = pipedWebpack(this.config);
 		stream.write(new File({
 			path: __dirname + '/../test_files/entry.js',
