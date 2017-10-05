@@ -115,7 +115,7 @@ describe('PipedWebpack', function(){
 		delete this.config.entry;
 		let stream = pipedWebpack(this.config);
 		stream.end();
-		
+
 		stream.on('data', function(){
 			cb(new Error('Found file, but is not expecting'));
 		});
