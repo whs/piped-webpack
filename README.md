@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Travis Status](https://travis-ci.org/whs/piped-webpack.svg)](https://travis-ci.org/whs/piped-webpack)
 [![npm](https://img.shields.io/npm/v/piped-webpack.svg)](https://www.npmjs.com/package/piped-webpack)
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 [webpack](https://webpack.js.org) as a [Gulp](http://gulpjs.com) plugin.
 
@@ -145,3 +146,5 @@ gulp.task('watch', function(){
 
 ## License
 piped-webpack is licensed under the [MIT License](LICENSE)
+
+This project is [unmaintained](http://unmaintained.tech/). You may use it, but issues and pull requests might be ignored.
